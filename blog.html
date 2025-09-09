@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - TRvet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://i.postimg.cc/kXjHXTVp/TRvet-LOGO-PNG.png" alt="TRvet" class="logo-img">
+                </div>
+                <nav class="nav">
+                    <ul class="nav-menu">
+                        <li><a href="index.html"><i class="fas fa-paw"></i>Início</a></li>
+                        <li><a href="quem-somos.html"><i class="fas fa-paw"></i>Quem somos</a></li>
+                        <li><a href="servicos.html"><i class="fas fa-paw"></i>Nossos serviços</a></li>
+                        <li><a href="especialistas.html"><i class="fas fa-paw"></i>Especialistas</a></li>
+                        <li><a href="blog.html" class="active"><i class="fas fa-paw"></i>Blog</a></li>
+                        <li><a href="contato.html"><i class="fas fa-paw"></i>Contato</a></li>
+                    </ul>
+                </nav>
+                <button class="cta-button" onclick="window.location.href='contato.html'">
+                    <i class="fas fa-comments"></i>
+                    Fale conosco
+                </button>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Blog TRvet</h1>
+                <p>Informações, dicas e novidades sobre saúde e cuidados veterinários</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Featured Post -->
+    <section class="featured-post-section">
+        <div class="container">
+            <div class="featured-post">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Raio-X em Pets">
+                    <div class="featured-badge">Destaque</div>
+                </div>
+                <div class="featured-content">
+                    <div class="post-meta">
+                        <span class="post-category">Diagnóstico</span>
+                        <span class="post-date">15 de Janeiro, 2025</span>
+                    </div>
+                    <h2>A Importância do Raio-X no Diagnóstico Veterinário</h2>
+                    <p>Descubra como os exames de raio-X revolucionaram o diagnóstico veterinário e por que são fundamentais para a saúde do seu pet. Entenda quando é necessário realizar este exame e como se preparar.</p>
+                    <div class="post-author">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Dr. Carlos Mendes">
+                        <div class="author-info">
+                            <span class="author-name">Dr. Carlos Mendes</span>
+                            <span class="author-role">Especialista em Radiologia</span>
+                        </div>
+                    </div>
+                    <button class="read-more-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        Leia mais
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts Section -->
+    <section class="blog-posts-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Últimos Artigos</h2>
+                <p>Mantenha-se informado sobre as melhores práticas em cuidados veterinários</p>
+            </div>
+            
+            <!-- Filter Tabs -->
+            <div class="blog-filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="diagnostico">Diagnóstico</button>
+                <button class="filter-btn" data-filter="cuidados">Cuidados</button>
+                <button class="filter-btn" data-filter="prevencao">Prevenção</button>
+                <button class="filter-btn" data-filter="tecnologia">Tecnologia</button>
+            </div>
+
+            <div class="blog-grid">
+                <!-- Post 1 -->
+                <article class="blog-card" data-category="diagnostico">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Raio X Veterinário">
+                        <div class="blog-category">Diagnóstico</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">12 de Janeiro, 2025</span>
+                            <span class="read-time">5 min de leitura</span>
+                        </div>
+                        <h3>Raio X Digital: Precisão no Diagnóstico Veterinário</h3>
+                        <p>Descubra como o raio X digital oferece imagens de alta qualidade com menor exposição à radiação, proporcionando diagnósticos mais rápidos e precisos para seu pet.</p>
+                        <div class="blog-author">
+                            <span>Por Dr. Roberto Santos</span>
+                        </div>
+                        <button class="blog-read-more">
+                            <i class="fas fa-arrow-right"></i>
+                            Leia mais
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="blog-card" data-category="cuidados">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tomografia Computadorizada">
+                        <div class="blog-category">Cuidados</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">10 de Janeiro, 2025</span>
+                            <span class="read-time">7 min de leitura</span>
+                        </div>
+                        <h3>Preparando seu Pet para Tomografia Computadorizada</h3>
+                        <p>Dicas essenciais para preparar seu animal de estimação para exames de tomografia, incluindo jejum, sedação e cuidados pós-exame.</p>
+                        <div class="blog-author">
+                            <span>Por Dra. Ana Silva</span>
+                        </div>
+                        <button class="blog-read-more">
+                            <i class="fas fa-arrow-right"></i>
+                            Leia mais
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="blog-card" data-category="prevencao">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Eletrocardiograma Veterinário">
+                        <div class="blog-category">Prevenção</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">8 de Janeiro, 2025</span>
+                            <span class="read-time">4 min de leitura</span>
+                        </div>
+                        <h3>Eletrocardiograma: Monitorando a Saúde Cardíaca</h3>
+                        <p>Entenda como o eletrocardiograma pode detectar arritmias e problemas cardíacos em pets, sendo essencial para a prevenção de doenças cardiovasculares.</p>
+                        <div class="blog-author">
+                            <span>Por Dr. Carlos Mendes</span>
+                        </div>
+                        <button class="blog-read-more">
+                            <i class="fas fa-arrow-right"></i>
+                            Leia mais
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 4 -->
+                <article class="blog-card" data-category="tecnologia">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ecocardiograma Veterinário">
+                        <div class="blog-category">Tecnologia</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">5 de Janeiro, 2025</span>
+                            <span class="read-time">8 min de leitura</span>
+                        </div>
+                        <h3>Ecocardiograma: Visualizando o Coração em Tempo Real</h3>
+                        <p>Conheça como o ecocardiograma permite avaliar a estrutura e função cardíaca em tempo real, sendo fundamental para diagnósticos cardiológicos precisos.</p>
+                        <div class="blog-author">
+                            <span>Por Dra. Mariana Costa</span>
+                        </div>
+                        <button class="blog-read-more">
+                            <i class="fas fa-arrow-right"></i>
+                            Leia mais
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 5 -->
+                <article class="blog-card" data-category="diagnostico">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Diagnóstico por Imagem">
+                        <div class="blog-category">Diagnóstico</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">3 de Janeiro, 2025</span>
+                            <span class="read-time">5 min de leitura</span>
+                        </div>
+                        <h3>Diagnóstico por Imagem: Quando Cada Exame é Indicado</h3>
+                        <p>Entenda as diferenças entre raio X, tomografia, eletrocardiograma e ecocardiograma, e quando cada exame é mais apropriado para seu pet.</p>
+                        <div class="blog-author">
+                            <span>Por Dr. Roberto Santos</span>
+                        </div>
+                        <button class="blog-read-more">
+                            <i class="fas fa-arrow-right"></i>
+                            Leia mais
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 6 -->
+                <article class="blog-card" data-category="tecnologia">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tecnologia Diagnóstica">
+                        <div class="blog-category">Tecnologia</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">1 de Janeiro, 2025</span>
+                            <span class="read-time">6 min de leitura</span>
+                        </div>
+                        <h3>Tecnologia Avançada em Diagnóstico Veterinário</h3>
+                        <p>Conheça como a tecnologia digital está revolucionando os exames veterinários, oferecendo maior precisão e rapidez nos diagnósticos.</p>
+                        <div class="blog-author">
+                            <span>Por Dr. Carlos Mendes</span>
+                        </div>
+                        <button class="blog-read-more">
+                            <i class="fas fa-arrow-right"></i>
+                            Leia mais
+                        </button>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-section">
+                <button class="load-more-btn">
+                    <i class="fas fa-plus"></i>
+                    Carregar Mais Artigos
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2>Receba Nossas Novidades</h2>
+                    <p>Inscreva-se em nossa newsletter e receba dicas exclusivas sobre cuidados veterinários e novidades do mundo pet.</p>
+                </div>
+                <div class="newsletter-form">
+                    <form class="newsletter-form-container">
+                        <input type="email" placeholder="Seu melhor e-mail" required>
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Inscrever-se
+                        </button>
+                    </form>
+                    <p class="newsletter-disclaimer">Não enviamos spam. Você pode cancelar a qualquer momento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Precisa de Ajuda Veterinária?</h2>
+                <p>Nossa equipe especializada está pronta para cuidar do seu pet</p>
+                <div class="cta-buttons">
+                    <button class="cta-button primary" onclick="window.location.href='contato.html'">
+                        <i class="fas fa-calendar-alt"></i>
+                        Agendar Consulta
+                    </button>
+                    <a href="tel:+5511999999999" class="cta-button secondary">
+                        <i class="fas fa-phone"></i>
+                        Ligar Agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="quem-somos.html">Quem somos</a></li>
+                        <li><a href="servicos.html">Nossos serviços</a></li>
+                        <li><a href="especialistas.html">Especialistas</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Horário de Funcionamento</h3>
+                    <div class="schedule">
+                        <p><strong>Segunda a Sexta:</strong> 08:00 às 17:00</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <div class="contact-info">
+                        <p><i class="fab fa-whatsapp"></i> (47) 928502</p>
+                        <p><i class="fas fa-envelope"></i> contato@trvet.com.br</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Rua 10, 303 - sala 04 - Centro, Balneário Camboriú - SC</p>
+                    </div>
+                </div>
+                <div class="footer-section footer-partners">
+                    <h3>Conheça nossos parceiros</h3>
+                    <div class="partners-grid">
+                        <img src="https://i.postimg.cc/hPtYmJvF/logo-mxunique.png" alt="MX Unique" class="partner-logo">
+                        <img src="https://i.postimg.cc/D05W9p3z/Ativo-2-LOGO-IBMvet-ORLANDO-tipografia-azul.png" alt="IBMvet Orlando" class="partner-logo">
+                        <img src="https://i.postimg.cc/JnYgKwCp/logo-ibmvet.png" alt="IBMVET" class="partner-logo">
+                        <img src="https://i.postimg.cc/GmvWRSvp/logo-vetgroup.png" alt="Vet Group" class="partner-logo">
+                        <img src="https://i.postimg.cc/Kz8wnGwK/Logo-2-2.png" alt="Logo" class="partner-logo">
+                        <img src="https://i.postimg.cc/L4TS8Th7/logo-cev.png" alt="CEV" class="partner-logo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 TRvet. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <div id="whatsappButton" class="whatsapp-button">
+        <img src="https://i.postimg.cc/QMJLbJVQ/whatsapp-logo-icon-186881.png" alt="WhatsApp" class="whatsapp-icon">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

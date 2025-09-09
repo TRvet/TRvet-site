@@ -1,0 +1,304 @@
+// Carrossel de imagens
+let currentSlide = 0;
+let totalSlides = 0;
+let carouselTrack = null;
+
+// Função para mover o carrossel
+function moveCarousel(direction) {
+    if (!carouselTrack || totalSlides === 0) return;
+    
+    currentSlide += direction;
+    
+    // Loop infinito
+    if (currentSlide >= totalSlides) {
+        currentSlide = 0;
+    } else if (currentSlide < 0) {
+        currentSlide = totalSlides - 1;
+    }
+    
+    // Aplicar transformação suave
+    const translateX = -currentSlide * 100;
+    carouselTrack.style.transform = `translateX(${translateX}%)`;
+}
+
+// Auto-play do carrossel (opcional)
+function autoPlayCarousel() {
+    setInterval(() => {
+        moveCarousel(1);
+    }, 5000); // Muda slide a cada 5 segundos
+}
+
+// Menu Mobile
+function toggleMobileMenu() {
+    const navMenu = document.querySelector('.nav-menu');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (navMenu && mobileToggle) {
+        navMenu.classList.toggle('mobile-active');
+        mobileToggle.classList.toggle('active');
+        
+        // Prevenir scroll do body quando menu estiver aberto
+        document.body.classList.toggle('menu-open');
+    }
+}
+
+// Fechar menu mobile ao clicar em um link
+function closeMobileMenu() {
+    const navMenu = document.querySelector('.nav-menu');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (navMenu && mobileToggle) {
+        navMenu.classList.remove('mobile-active');
+        mobileToggle.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    }
+}
+
+// Inicializar quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    // Configurar variáveis do carrossel
+    carouselTrack = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
+    totalSlides = slides.length;
+    currentSlide = 0;
+    
+    // Inicializar carrossel na primeira posição
+    if (carouselTrack && totalSlides > 0) {
+        carouselTrack.style.transform = 'translateX(0%)';
+        
+        // Iniciar auto-play (descomente a linha abaixo se quiser auto-play)
+        // autoPlayCarousel();
+    }
+    
+    // Adicionar event listeners para os botões (backup caso o onclick não funcione)
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => moveCarousel(-1));
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => moveCarousel(1));
+    }
+    
+    // Configurar menu mobile
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', toggleMobileMenu);
+    }
+    
+    // Fechar menu mobile ao clicar nos links
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+    
+    // Fechar menu mobile ao clicar fora dele
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('.nav');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (navMenu && navMenu.classList.contains('mobile-active') && 
+            !nav.contains(e.target)) {
+            closeMobileMenu();
+        }
+    });
+});
+
+// Navegação por teclado
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') {
+        moveCarousel(-1);
+    } else if (e.key === 'ArrowRight') {
+        moveCarousel(1);
+    }
+});
+
+// Pausar auto-play quando o mouse estiver sobre o carrossel
+const carouselContainer = document.querySelector('.carousel-container');
+if (carouselContainer) {
+    carouselContainer.addEventListener('mouseenter', function() {
+        // Pausar auto-play se estiver ativo
+    });
+    
+    carouselContainer.addEventListener('mouseleave', function() {
+        // Retomar auto-play se estiver ativo
+    });
+}
+
+// WhatsApp Button Functionality
+class WhatsAppButton {
+    constructor() {
+        this.whatsappButton = document.getElementById('whatsappButton');
+        this.whatsappPopup = document.getElementById('whatsappPopup');
+        this.closePopupBtn = document.getElementById('closeWhatsappPopup');
+        this.openChatBtn = document.getElementById('openWhatsappChat');
+        this.cancelBtn = document.getElementById('cancelWhatsapp');
+        this.phoneNumber = '5547928502'; // Número da TRvet
+        this.defaultMessage = 'Olá! Gostaria de saber mais sobre os serviços da TRvet.';
+        
+        this.init();
+    }
+    
+    init() {
+        this.bindEvents();
+    }
+    
+    bindEvents() {
+        // Abrir WhatsApp direto ao clicar no botão flutuante
+        if (this.whatsappButton) {
+            this.whatsappButton.addEventListener('click', () => {
+                this.openWhatsApp();
+            });
+        }
+        
+        // Fechar popup
+        if (this.closePopupBtn) {
+            this.closePopupBtn.addEventListener('click', () => {
+                this.hidePopup();
+            });
+        }
+        
+        if (this.cancelBtn) {
+            this.cancelBtn.addEventListener('click', () => {
+                this.hidePopup();
+            });
+        }
+        
+        // Abrir WhatsApp
+        if (this.openChatBtn) {
+            this.openChatBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openWhatsApp();
+                this.hidePopup();
+            });
+        }
+        
+        // Fechar popup ao clicar fora
+        if (this.whatsappPopup) {
+            this.whatsappPopup.addEventListener('click', (e) => {
+                if (e.target === this.whatsappPopup) {
+                    this.hidePopup();
+                }
+            });
+        }
+        
+        // Fechar popup com ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.whatsappPopup.classList.contains('active')) {
+                this.hidePopup();
+            }
+        });
+    }
+    
+    showPopup() {
+        if (this.whatsappPopup) {
+            this.whatsappPopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    hidePopup() {
+        if (this.whatsappPopup) {
+            this.whatsappPopup.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    openWhatsApp() {
+        const message = encodeURIComponent(this.defaultMessage);
+        const whatsappUrl = `https://wa.me/${this.phoneNumber}?text=${message}`;
+        
+        // Abrir WhatsApp em nova aba
+        window.open(whatsappUrl, '_blank');
+        
+        // Tracking do evento (opcional)
+        this.trackWhatsAppClick();
+    }
+    
+    trackWhatsAppClick() {
+        // Aqui você pode integrar com Google Analytics, Facebook Pixel, etc.
+        console.log('WhatsApp button clicked');
+        
+        // Exemplo de integração com Google Analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'whatsapp_click', {
+                event_category: 'Contact',
+                event_label: 'WhatsApp Button',
+                value: 1
+            });
+        }
+    }
+}
+
+// Função para inicializar o carousel da equipe
+function initializeTeamCarousel() {
+    const teamTrack = document.querySelector('.team-track');
+    const teamMembers = document.querySelectorAll('.team-member');
+    const prevBtn = document.getElementById('teamPrevBtn');
+    const nextBtn = document.getElementById('teamNextBtn');
+    
+    if (!teamTrack || teamMembers.length === 0) return;
+    
+    let currentIndex = 0;
+    const memberWidth = 370; // 350px + 20px gap
+    const visibleMembers = Math.floor(teamTrack.parentElement.offsetWidth / memberWidth);
+    const maxIndex = Math.max(0, teamMembers.length - visibleMembers);
+    
+    function updateCarousel() {
+        const translateX = -currentIndex * memberWidth;
+        teamTrack.style.transform = `translateX(${translateX}px)`;
+        
+        // Atualizar estado dos botões
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= maxIndex;
+    }
+    
+    function moveCarousel(direction) {
+        if (direction === 1 && currentIndex < maxIndex) {
+            currentIndex++;
+        } else if (direction === -1 && currentIndex > 0) {
+            currentIndex--;
+        }
+        updateCarousel();
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => moveCarousel(-1));
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => moveCarousel(1));
+    }
+    
+    // Inicializar estado
+    updateCarousel();
+    
+    // Atualizar ao redimensionar a janela
+    window.addEventListener('resize', () => {
+        const newVisibleMembers = Math.floor(teamTrack.parentElement.offsetWidth / memberWidth);
+        const newMaxIndex = Math.max(0, teamMembers.length - newVisibleMembers);
+        if (currentIndex > newMaxIndex) {
+            currentIndex = newMaxIndex;
+        }
+        updateCarousel();
+    });
+}
+
+// Inicializar o botão do WhatsApp quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    new WhatsAppButton();
+    initializeTeamCarousel();
+    
+    // Configure hero CTA button to open WhatsApp
+    const heroCTA = document.querySelector('.hero-cta');
+    if (heroCTA) {
+        heroCTA.addEventListener('click', () => {
+            const phoneNumber = '5547928502'; // Número da TRvet
+            const message = encodeURIComponent('Olá! Gostaria de agendar uma consulta.');
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    }
+});

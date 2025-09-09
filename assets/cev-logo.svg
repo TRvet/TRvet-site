@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- CEV logo -->
+  <rect width="200" height="60" fill="#1a1a1a"/>
+  
+  <!-- Icons -->
+  <circle cx="25" cy="30" r="12" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+  <text x="25" y="35" font-family="Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">$</text>
+  
+  <circle cx="50" cy="30" r="12" fill="#10b981" stroke="#059669" stroke-width="2"/>
+  <rect x="45" y="25" width="10" height="10" fill="#1a1a1a" rx="2"/>
+  
+  <rect x="75" y="18" width="24" height="24" fill="#3b82f6" stroke="#2563eb" stroke-width="2" rx="4"/>
+  <circle cx="87" cy="30" r="4" fill="#ffffff"/>
+  
+  <!-- CEV text -->
+  <text x="120" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#ffffff">CEV</text>
+</svg>

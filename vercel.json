@@ -1,0 +1,61 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.svg",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.png",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/quem-somos",
+      "dest": "/quem-somos.html"
+    },
+    {
+      "src": "/especialistas",
+      "dest": "/especialistas.html"
+    },
+    {
+      "src": "/servicos",
+      "dest": "/servicos.html"
+    },
+    {
+      "src": "/blog",
+      "dest": "/blog.html"
+    },
+    {
+      "src": "/contato",
+      "dest": "/contato.html"
+    },
+    {
+      "src": "/snake",
+      "dest": "/snake.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
+}
