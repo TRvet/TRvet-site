@@ -40,15 +40,17 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" style="max-width: 990px; height: 476px; margin: 0 auto;">
+    <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>O seu pet merece o melhor cuidado!</h1>
-                    <p>Na TRvet oferecemos suporte completo em Radiografia, Tomografia Computadorizada, Eletrocardiograma e Ecocardiograma, com equipe 100% especializada, emissão rápida e assessoria direta com nossos profissionais. Tenha confiança no diagnóstico e agilidade nos atendimentos do seu negócio. Aumente a sua lucratividade e torne-se referência na sua região!</p>
+                    <h1 class="digital-text">
+                        <span class="text-line">O seu pet merece </span>
+                        <span class="animated-word" id="animatedWord">melhor cuidado!</span>
+                    </h1>
                     <button class="hero-cta">
                         <i class="fab fa-whatsapp"></i>
-                        Agendar consulta
+                        Solicitar laudo
                     </button>
                 </div>
                 <div class="hero-image">
@@ -57,8 +59,6 @@
             </div>
         </div>
     </section>
-
-
 
 
 
@@ -143,36 +143,71 @@
         </div>
     </section>
 
-    <!-- Raio X dos Animais -->
-    <section class="xray-gallery">
+    <!-- Depoimentos -->
+    <section class="testimonials-section">
         <div class="container">
-            <h2>Imagens de Raio X</h2>
-            <div class="carousel-container">
-                <div class="carousel">
-                    <div class="carousel-track">
-                        <div class="carousel-slide">
-                            <img src="" alt="Raio-X de cão">
+            <div class="testimonials-carousel">
+                <div class="testimonials-track">
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                <blockquote>
+                                    "Diagnósticos mais precisos e rápidos transformaram nossa rotina clínica. A qualidade das imagens radiográficas é excepcional."
+                                </blockquote>
+                                <div class="testimonial-author">
+                                    <strong>Slide 01</strong> - Diagnóstico por Imagem Avançado
+                                </div>
+                                <button class="testimonial-btn">Saiba mais sobre nossos equipamentos</button>
+                            </div>
+                            <div class="testimonial-image">
+                                <img src="https://i.postimg.cc/2jwt8PNC/raio-x.png" alt="Raio-X Veterinário - Diagnóstico Avançado">
+                            </div>
                         </div>
-                        <div class="carousel-slide">
-                            <img src="" alt="Raio-X de gato">
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                <blockquote>
+                                    "A tecnologia de ponta em radiologia veterinária nos permite identificar problemas que antes passavam despercebidos."
+                                </blockquote>
+                                <div class="testimonial-author">
+                                    <strong>Slide 02</strong> - Precisão em Cada Exame
+                                </div>
+                                <button class="testimonial-btn">Conheça nossa tecnologia</button>
+                            </div>
+                            <div class="testimonial-image">
+                                <img src="https://i.postimg.cc/8PXnLMC3/raio-x-copiar.png" alt="Raio-X Veterinário - Tecnologia de Ponta">
+                            </div>
                         </div>
-                        <div class="carousel-slide">
-                            <img src="" alt="Raio-X de gato">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="" alt="Raio-X de ave">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="" alt="Raio-X de coelho">
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                <blockquote>
+                                    "Cada imagem conta uma história. Nossa expertise em radiologia veterinária garante o melhor cuidado para seus pacientes."
+                                </blockquote>
+                                <div class="testimonial-author">
+                                    <strong>Slide 03</strong> - Expertise e Cuidado
+                                </div>
+                                <button class="testimonial-btn">Agende uma consulta</button>
+                            </div>
+                            <div class="testimonial-image">
+                                <img src="https://i.postimg.cc/jdSFWZRP/raio-x-copiar-2.png" alt="Raio-X Veterinário - Cuidado Especializado">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <button class="carousel-btn prev" onclick="moveCarousel(-1)">
+                <button class="testimonial-nav prev" onclick="moveTestimonialCarousel(-1)">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <button class="carousel-btn next" onclick="moveCarousel(1)">
+                <button class="testimonial-nav next" onclick="moveTestimonialCarousel(1)">
                     <i class="fas fa-chevron-right"></i>
                 </button>
+                <div class="testimonial-dots">
+                    <span class="dot active" onclick="goToTestimonialSlide(1)"></span>
+                    <span class="dot" onclick="goToTestimonialSlide(2)"></span>
+                    <span class="dot" onclick="goToTestimonialSlide(3)"></span>
+                </div>
             </div>
         </div>
     </section>

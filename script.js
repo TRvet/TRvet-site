@@ -54,8 +54,58 @@ function closeMobileMenu() {
     }
 }
 
+// Digital Text Animation
+function initDigitalTextAnimation() {
+    const animatedWord = document.getElementById('animatedWord');
+    const textOptions = [
+        'melhor cuidado!',
+        'diagnósticos precisos!',
+        'atendimento especializado!',
+        'a tecnologia avançada!',
+        'resultados rápidos!',
+        'excelência veterinária!'
+    ];
+    
+    let currentIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typeSpeed = 100;
+    
+    function typeWriter() {
+        const currentText = textOptions[currentIndex];
+        
+        if (isDeleting) {
+            animatedWord.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+            typeSpeed = 50;
+        } else {
+            animatedWord.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+            typeSpeed = 100;
+        }
+        
+        if (!isDeleting && charIndex === currentText.length) {
+            typeSpeed = 2000; // Pause at end
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            currentIndex = (currentIndex + 1) % textOptions.length;
+            typeSpeed = 500; // Pause before next word
+        }
+        
+        setTimeout(typeWriter, typeSpeed);
+    }
+    
+    // Start the animation
+    if (animatedWord) {
+        typeWriter();
+    }
+}
+
 // Inicializar quando a página carregar
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize digital text animation
+    initDigitalTextAnimation();
     // Configurar variáveis do carrossel
     carouselTrack = document.querySelector('.carousel-track');
     const slides = document.querySelectorAll('.carousel-slide');
@@ -286,10 +336,73 @@ function initializeTeamCarousel() {
     });
 }
 
+
+
+// Carousel de Depoimentos
+let currentTestimonialSlide = 0;
+const totalTestimonialSlides = 3;
+
+function moveTestimonialCarousel(direction) {
+    const track = document.querySelector('.testimonials-track');
+    if (!track) return;
+    
+    currentTestimonialSlide += direction;
+    
+    // Loop infinito
+    if (currentTestimonialSlide >= totalTestimonialSlides) {
+        currentTestimonialSlide = 0;
+    } else if (currentTestimonialSlide < 0) {
+        currentTestimonialSlide = totalTestimonialSlides - 1;
+    }
+    
+    // Aplicar transformação
+    const translateX = -currentTestimonialSlide * 33.333;
+    track.style.transform = `translateX(${translateX}%)`;
+    
+    // Atualizar dots
+    updateTestimonialDots();
+}
+
+function goToTestimonialSlide(slideIndex) {
+    const track = document.querySelector('.testimonials-track');
+    if (!track) return;
+    
+    currentTestimonialSlide = slideIndex - 1;
+    
+    // Aplicar transformação
+    const translateX = -currentTestimonialSlide * 33.333;
+    track.style.transform = `translateX(${translateX}%)`;
+    
+    // Atualizar dots
+    updateTestimonialDots();
+}
+
+function updateTestimonialDots() {
+    const dots = document.querySelectorAll('.testimonial-dots .dot');
+    dots.forEach((dot, index) => {
+        if (index === currentTestimonialSlide) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// Auto-play do carousel de depoimentos
+function autoPlayTestimonials() {
+    setInterval(() => {
+        moveTestimonialCarousel(1);
+    }, 6000); // Muda slide a cada 6 segundos
+}
+
 // Inicializar o botão do WhatsApp quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
     new WhatsAppButton();
     initializeTeamCarousel();
+    
+    // Inicializar carousel de depoimentos
+    updateTestimonialDots();
+    // autoPlayTestimonials(); // Descomente para ativar auto-play
     
     // Configure hero CTA button to open WhatsApp
     const heroCTA = document.querySelector('.hero-cta');
@@ -301,4 +414,5 @@ document.addEventListener('DOMContentLoaded', function() {
             window.open(whatsappUrl, '_blank');
         });
     }
+
 });
