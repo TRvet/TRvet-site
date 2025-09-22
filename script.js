@@ -301,8 +301,8 @@ function initializeTeamCarousel() {
         teamTrack.style.transform = `translateX(${translateX}px)`;
         
         // Atualizar estado dos botões
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex >= maxIndex;
+        if (prevBtn) prevBtn.disabled = currentIndex === 0;
+        if (nextBtn) nextBtn.disabled = currentIndex >= maxIndex;
     }
     
     function moveCarousel(direction) {
@@ -336,6 +336,7 @@ function initializeTeamCarousel() {
     });
 }
 
+// Função para inicializar o carousel dos especialistas
 
 
 // Carousel de Depoimentos
@@ -398,7 +399,11 @@ function autoPlayTestimonials() {
 // Inicializar o botão do WhatsApp quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
     new WhatsAppButton();
-    initializeTeamCarousel();
+    
+    // Inicializar carousel da equipe apenas se existir
+    if (document.getElementById('teamTrack')) {
+        initializeTeamCarousel();
+    }
     
     // Inicializar carousel de depoimentos
     updateTestimonialDots();
@@ -414,5 +419,18 @@ document.addEventListener('DOMContentLoaded', function() {
             window.open(whatsappUrl, '_blank');
         });
     }
+    
+    // Configure specialist contact buttons to open WhatsApp
+    const contactBtns = document.querySelectorAll('.contact-btn');
+    contactBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const phoneNumber = '5547928502'; // Número da TRvet
+            const specialistCard = btn.closest('.specialist-card');
+            const specialistName = specialistCard ? specialistCard.querySelector('h3').textContent : '';
+            const message = encodeURIComponent(`Olá! Gostaria de agendar uma consulta com ${specialistName}.`);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    });
 
 });
