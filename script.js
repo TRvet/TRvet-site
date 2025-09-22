@@ -1,3 +1,16 @@
+// Função de debounce para evitar múltiplos cliques
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
 // Carrossel de imagens
 let currentSlide = 0;
 let totalSlides = 0;
@@ -29,18 +42,30 @@ function autoPlayCarousel() {
 }
 
 // Menu Mobile
-function toggleMobileMenu() {
+function toggleMobileMenu(event) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
     const navMenu = document.querySelector('.nav-menu');
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     
     if (navMenu && mobileToggle) {
-        navMenu.classList.toggle('mobile-active');
-        mobileToggle.classList.toggle('active');
+        const isOpen = navMenu.classList.contains('mobile-active');
         
-        // Prevenir scroll do body quando menu estiver aberto
-        document.body.classList.toggle('menu-open');
+        if (isOpen) {
+            closeMobileMenu();
+        } else {
+            navMenu.classList.add('mobile-active');
+            mobileToggle.classList.add('active');
+            document.body.classList.add('menu-open');
+        }
     }
 }
+
+// Versão com debounce para evitar múltiplos cliques
+const debouncedToggleMobileMenu = debounce(toggleMobileMenu, 150);
 
 // Fechar menu mobile ao clicar em um link
 function closeMobileMenu() {
@@ -51,6 +76,19 @@ function closeMobileMenu() {
         navMenu.classList.remove('mobile-active');
         mobileToggle.classList.remove('active');
         document.body.classList.remove('menu-open');
+    }
+}
+
+// Fechar menu ao clicar fora dele
+function closeMobileMenuOnOutsideClick(event) {
+    const navMenu = document.querySelector('.nav-menu');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (navMenu && navMenu.classList.contains('mobile-active')) {
+        // Se clicou fora do menu e não no botão toggle
+        if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+            closeMobileMenu();
+        }
     }
 }
 
@@ -120,37 +158,41 @@ document.addEventListener('DOMContentLoaded', function() {
         // autoPlayCarousel();
     }
     
-    // Adicionar event listeners para os botões (backup caso o onclick não funcione)
+    // Adicionar event listeners para os botões do carrossel com debounce
     const prevBtn = document.querySelector('.carousel-btn.prev');
     const nextBtn = document.querySelector('.carousel-btn.next');
     
     if (prevBtn) {
-        prevBtn.addEventListener('click', () => moveCarousel(-1));
+        prevBtn.addEventListener('click', debounce(() => moveCarousel(-1), 100));
     }
     
     if (nextBtn) {
-        nextBtn.addEventListener('click', () => moveCarousel(1));
+        nextBtn.addEventListener('click', debounce(() => moveCarousel(1), 100));
     }
     
     // Configurar menu mobile
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     if (mobileToggle) {
-        mobileToggle.addEventListener('click', toggleMobileMenu);
+        mobileToggle.addEventListener('click', debouncedToggleMobileMenu);
     }
     
     // Fechar menu mobile ao clicar nos links
     const navLinks = document.querySelectorAll('.nav-menu a');
     navLinks.forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
+        link.addEventListener('click', function(event) {
+            // Só fecha o menu se for um link válido (não preventDefault)
+            if (link.getAttribute('href') && link.getAttribute('href') !== '#') {
+                closeMobileMenu();
+            }
+        });
     });
     
-    // Fechar menu mobile ao clicar fora dele
-    document.addEventListener('click', function(e) {
-        const nav = document.querySelector('.nav');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        if (navMenu && navMenu.classList.contains('mobile-active') && 
-            !nav.contains(e.target)) {
+    // Fechar menu mobile ao clicar fora
+    document.addEventListener('click', closeMobileMenuOnOutsideClick);
+    
+    // Fechar menu mobile ao pressionar ESC
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
             closeMobileMenu();
         }
     });
@@ -432,5 +474,40 @@ document.addEventListener('DOMContentLoaded', function() {
             window.open(whatsappUrl, '_blank');
         });
     });
+    
+    // Implementar lazy loading para imagens
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+    
+    // Otimização de performance: remover event listeners desnecessários em elementos não visíveis
+    const optimizePerformance = debounce(() => {
+        // Remover animações em elementos fora da viewport
+        const animatedElements = document.querySelectorAll('.animate');
+        animatedElements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (!isVisible) {
+                element.style.animationPlayState = 'paused';
+            } else {
+                element.style.animationPlayState = 'running';
+            }
+        });
+    }, 100);
+    
+    // Otimizar performance durante scroll
+    window.addEventListener('scroll', optimizePerformance, { passive: true });
+    window.addEventListener('resize', optimizePerformance, { passive: true });
 
 });
