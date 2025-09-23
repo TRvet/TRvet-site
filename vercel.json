@@ -32,10 +32,6 @@
       "dest": "/quem-somos.html"
     },
     {
-      "src": "/profissionais",
-      "dest": "/profissionais.html"
-    },
-    {
       "src": "/servicos",
       "dest": "/servicos.html"
     },

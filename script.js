@@ -330,24 +330,61 @@ function initializeTeamCarousel() {
     const teamMembers = document.querySelectorAll('.team-member');
     const prevBtn = document.getElementById('teamPrevBtn');
     const nextBtn = document.getElementById('teamNextBtn');
+    const carousel = document.querySelector('.team-carousel');
     
-    if (!teamTrack || teamMembers.length === 0) return;
+    if (!teamTrack || teamMembers.length === 0 || !carousel) return;
     
     let currentIndex = 0;
-    const memberWidth = 370; // 350px + 20px gap
-    const visibleMembers = Math.floor(teamTrack.parentElement.offsetWidth / memberWidth);
-    const maxIndex = Math.max(0, teamMembers.length - visibleMembers);
+    
+    function calculateDimensions() {
+        const carouselWidth = carousel.offsetWidth;
+        const memberElement = teamMembers[0];
+        const memberWidth = memberElement.offsetWidth;
+        const gap = parseInt(getComputedStyle(teamTrack).gap) || 20;
+        
+        // Calcular quantos membros são visíveis
+        let visibleMembers;
+        if (window.innerWidth <= 480) {
+            visibleMembers = 1; // Apenas 1 membro visível em telas pequenas
+        } else if (window.innerWidth <= 768) {
+            visibleMembers = 1; // 1 membro em tablets
+        } else {
+            visibleMembers = Math.floor(carouselWidth / (memberWidth + gap));
+            visibleMembers = Math.max(1, Math.min(visibleMembers, 3)); // Entre 1 e 3 membros
+        }
+        
+        return {
+            memberWidth: memberWidth + gap,
+            visibleMembers,
+            maxIndex: Math.max(0, teamMembers.length - visibleMembers)
+        };
+    }
     
     function updateCarousel() {
+        const { memberWidth, maxIndex } = calculateDimensions();
+        
+        // Ajustar currentIndex se necessário
+        if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+        }
+        
         const translateX = -currentIndex * memberWidth;
         teamTrack.style.transform = `translateX(${translateX}px)`;
         
         // Atualizar estado dos botões
-        if (prevBtn) prevBtn.disabled = currentIndex === 0;
-        if (nextBtn) nextBtn.disabled = currentIndex >= maxIndex;
+        if (prevBtn) {
+            prevBtn.disabled = currentIndex === 0;
+            prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+        }
+        if (nextBtn) {
+            nextBtn.disabled = currentIndex >= maxIndex;
+            nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+        }
     }
     
     function moveCarousel(direction) {
+        const { maxIndex } = calculateDimensions();
+        
         if (direction === 1 && currentIndex < maxIndex) {
             currentIndex++;
         } else if (direction === -1 && currentIndex > 0) {
@@ -356,6 +393,7 @@ function initializeTeamCarousel() {
         updateCarousel();
     }
     
+    // Event listeners para os botões
     if (prevBtn) {
         prevBtn.addEventListener('click', () => moveCarousel(-1));
     }
@@ -364,17 +402,46 @@ function initializeTeamCarousel() {
         nextBtn.addEventListener('click', () => moveCarousel(1));
     }
     
+    // Suporte para touch/swipe em dispositivos móveis
+    let startX = 0;
+    let isDragging = false;
+    
+    teamTrack.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+    });
+    
+    teamTrack.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+    });
+    
+    teamTrack.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+        
+        if (Math.abs(diffX) > 50) { // Mínimo de 50px para considerar swipe
+            if (diffX > 0) {
+                moveCarousel(1); // Swipe left - próximo
+            } else {
+                moveCarousel(-1); // Swipe right - anterior
+            }
+        }
+    });
+    
     // Inicializar estado
     updateCarousel();
     
     // Atualizar ao redimensionar a janela
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-        const newVisibleMembers = Math.floor(teamTrack.parentElement.offsetWidth / memberWidth);
-        const newMaxIndex = Math.max(0, teamMembers.length - newVisibleMembers);
-        if (currentIndex > newMaxIndex) {
-            currentIndex = newMaxIndex;
-        }
-        updateCarousel();
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateCarousel();
+        }, 250);
     });
 }
 
