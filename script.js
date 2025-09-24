@@ -227,7 +227,7 @@ class WhatsAppButton {
         this.closePopupBtn = document.getElementById('closeWhatsappPopup');
         this.openChatBtn = document.getElementById('openWhatsappChat');
         this.cancelBtn = document.getElementById('cancelWhatsapp');
-        this.phoneNumber = '5547928502'; // Número da TRvet
+        this.phoneNumber = '5547992850502'; // Número da TRvet
         this.defaultMessage = 'Olá! Gostaria de saber mais sobre os serviços da TRvet.';
         
         this.init();
@@ -448,62 +448,7 @@ function initializeTeamCarousel() {
 // Função para inicializar o carousel dos especialistas
 
 
-// Carousel de Depoimentos
-let currentTestimonialSlide = 0;
-const totalTestimonialSlides = 3;
 
-function moveTestimonialCarousel(direction) {
-    const track = document.querySelector('.testimonials-track');
-    if (!track) return;
-    
-    currentTestimonialSlide += direction;
-    
-    // Loop infinito
-    if (currentTestimonialSlide >= totalTestimonialSlides) {
-        currentTestimonialSlide = 0;
-    } else if (currentTestimonialSlide < 0) {
-        currentTestimonialSlide = totalTestimonialSlides - 1;
-    }
-    
-    // Aplicar transformação
-    const translateX = -currentTestimonialSlide * 33.333;
-    track.style.transform = `translateX(${translateX}%)`;
-    
-    // Atualizar dots
-    updateTestimonialDots();
-}
-
-function goToTestimonialSlide(slideIndex) {
-    const track = document.querySelector('.testimonials-track');
-    if (!track) return;
-    
-    currentTestimonialSlide = slideIndex - 1;
-    
-    // Aplicar transformação
-    const translateX = -currentTestimonialSlide * 33.333;
-    track.style.transform = `translateX(${translateX}%)`;
-    
-    // Atualizar dots
-    updateTestimonialDots();
-}
-
-function updateTestimonialDots() {
-    const dots = document.querySelectorAll('.testimonial-dots .dot');
-    dots.forEach((dot, index) => {
-        if (index === currentTestimonialSlide) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active');
-        }
-    });
-}
-
-// Auto-play do carousel de depoimentos
-function autoPlayTestimonials() {
-    setInterval(() => {
-        moveTestimonialCarousel(1);
-    }, 6000); // Muda slide a cada 6 segundos
-}
 
 // Inicializar o botão do WhatsApp quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
@@ -514,15 +459,13 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeTeamCarousel();
     }
     
-    // Inicializar carousel de depoimentos
-    updateTestimonialDots();
-    // autoPlayTestimonials(); // Descomente para ativar auto-play
+
     
     // Configure hero CTA button to open WhatsApp
     const heroCTA = document.querySelector('.hero-cta');
     if (heroCTA) {
         heroCTA.addEventListener('click', () => {
-            const phoneNumber = '5547928502'; // Número da TRvet
+            const phoneNumber = '5547992850502'; // Número da TRvet
             const message = encodeURIComponent('Olá! Gostaria de agendar uma consulta.');
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
             window.open(whatsappUrl, '_blank');
@@ -533,7 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactBtns = document.querySelectorAll('.contact-btn');
     contactBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            const phoneNumber = '5547928502'; // Número da TRvet
+            const phoneNumber = '5547992850502'; // Número da TRvet
             const specialistCard = btn.closest('.specialist-card');
             const specialistName = specialistCard ? specialistCard.querySelector('h3').textContent : '';
             const message = encodeURIComponent(`Olá! Gostaria de agendar uma consulta com ${specialistName}.`);
@@ -576,5 +519,73 @@ document.addEventListener('DOMContentLoaded', function() {
     // Otimizar performance durante scroll
     window.addEventListener('scroll', optimizePerformance, { passive: true });
     window.addEventListener('resize', optimizePerformance, { passive: true });
+
+    // Carrossel de Raio-X
+    let currentXraySlide = 0;
+    const totalXraySlides = 3;
+    const xrayCarouselTrack = document.getElementById('xrayCarouselTrack');
+    const xrayPrevBtn = document.getElementById('xrayPrevBtn');
+    const xrayNextBtn = document.getElementById('xrayNextBtn');
+    const xrayDots = document.querySelectorAll('#xrayCarouselDots .dot');
+
+    function moveXrayCarousel(slideIndex) {
+        if (xrayCarouselTrack) {
+            const translateX = -(slideIndex * (100 / totalXraySlides));
+            xrayCarouselTrack.style.transform = `translateX(${translateX}%)`;
+            currentXraySlide = slideIndex;
+            updateXrayDots();
+        }
+    }
+
+    function goToXraySlide(slideIndex) {
+        if (slideIndex >= 0 && slideIndex < totalXraySlides) {
+            moveXrayCarousel(slideIndex);
+        }
+    }
+
+    function nextXraySlide() {
+        const nextSlide = (currentXraySlide + 1) % totalXraySlides;
+        goToXraySlide(nextSlide);
+    }
+
+    function prevXraySlide() {
+        const prevSlide = (currentXraySlide - 1 + totalXraySlides) % totalXraySlides;
+        goToXraySlide(prevSlide);
+    }
+
+    function updateXrayDots() {
+        xrayDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentXraySlide);
+        });
+    }
+
+    // Event listeners para o carrossel de raio-x
+    if (xrayNextBtn) {
+        xrayNextBtn.addEventListener('click', nextXraySlide);
+    }
+
+    if (xrayPrevBtn) {
+        xrayPrevBtn.addEventListener('click', prevXraySlide);
+    }
+
+    // Event listeners para os dots
+    xrayDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => goToXraySlide(index));
+    });
+
+    // Auto-play para o carrossel de raio-x
+    function autoPlayXray() {
+        setInterval(() => {
+            if (xrayCarouselTrack && !document.hidden) {
+                nextXraySlide();
+            }
+        }, 4000);
+    }
+
+    // Inicializar carrossel de raio-x
+    if (xrayCarouselTrack) {
+        updateXrayDots();
+        autoPlayXray();
+    }
 
 });
