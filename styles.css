@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+/* Reset específico para links */
+a {
+    text-decoration: none;
+}
+
 
 
 :root {
