@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <!-- TRvet favicon 32x32 baseado no logo oficial -->
+  <!-- TRvet favicon 32x32 com proporções corretas -->
   <defs>
     <style>
       .bg { fill: #ffffff; }
@@ -9,13 +9,13 @@
     </style>
   </defs>
   
-  <!-- Fundo branco com bordas arredondadas -->
-  <rect width="32" height="32" rx="4" class="bg"/>
+  <!-- Fundo branco -->
+  <rect width="32" height="32" rx="3" class="bg"/>
   
-  <!-- TR com fundo roxo -->
-  <rect x="3" y="8" width="12" height="16" rx="6" class="tr-bg"/>
-  <text x="9" y="19" font-size="8" text-anchor="middle" class="tr-text">TR</text>
+  <!-- TR com fundo roxo - proporções mais fiéis ao original -->
+  <rect x="2" y="10" width="14" height="12" rx="6" class="tr-bg"/>
+  <text x="9" y="18.5" font-size="7" text-anchor="middle" class="tr-text">TR</text>
   
-  <!-- .vet em verde -->
-  <text x="20" y="19" font-size="6" text-anchor="middle" class="vet-text">.vet</text>
+  <!-- .vet em verde - posicionamento mais preciso -->
+  <text x="19" y="18.5" font-size="5.5" text-anchor="start" class="vet-text">.vet</text>
 </svg>
