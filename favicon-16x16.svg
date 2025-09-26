@@ -1,21 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
-  <!-- TRvet favicon 16x16 com proporções corretas -->
+  <!-- TRvet favicon 16x16 baseado na nova logo oficial -->
   <defs>
     <style>
       .bg { fill: #ffffff; }
       .tr-bg { fill: #8b5cf6; }
-      .tr-text { fill: #ffffff; font-family: Arial, sans-serif; font-weight: bold; }
-      .vet-text { fill: #00d4aa; font-family: Arial, sans-serif; font-weight: bold; }
+      .tr-text { fill: #ffffff; font-family: 'Arial', sans-serif; font-weight: bold; }
+      .vet-text { fill: #00d4aa; font-family: 'Arial', sans-serif; font-weight: bold; }
+      .border { fill: none; stroke: #e5e7eb; stroke-width: 0.25; }
     </style>
   </defs>
   
-  <!-- Fundo branco -->
+  <!-- Fundo branco com borda sutil -->
   <rect width="16" height="16" rx="2" class="bg"/>
+  <rect width="16" height="16" rx="2" class="border"/>
   
-  <!-- TR com fundo roxo - otimizado para 16px -->
-  <rect x="1" y="5" width="7" height="6" rx="3" class="tr-bg"/>
-  <text x="4.5" y="9" font-size="3.5" text-anchor="middle" class="tr-text">TR</text>
+  <!-- TR com fundo roxo - design atualizado para 16px -->
+  <rect x="1.5" y="4.5" width="7.5" height="7" rx="3.5" class="tr-bg"/>
+  <text x="5.25" y="9" font-size="4" text-anchor="middle" class="tr-text">TR</text>
   
-  <!-- .vet em verde - otimizado para 16px -->
-  <text x="9.5" y="9" font-size="2.8" text-anchor="start" class="vet-text">.vet</text>
+  <!-- .vet em verde - posicionamento otimizado para 16px -->
+  <text x="10" y="9" font-size="3" text-anchor="start" class="vet-text">.vet</text>
 </svg>
